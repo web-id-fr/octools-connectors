@@ -1,0 +1,51 @@
+{
+    "name": "webid/octools-connectors",
+    "authors": [
+        {
+            "name": "Team",
+            "email": "team@web-id.fr"
+        }
+    ],
+    "require": {
+        "webid/octools": "dev-main",
+        "illuminate/support": "^10.0",
+        "laravel/nova": "^4.0",
+        "jolicode/slack-php-api": "^4.5",
+        "symfony/http-client": "^6.2",
+        "nyholm/psr7": "^1.5"
+    },
+    "autoload": {
+        "psr-4": {
+            "Webid\\OctoolsGithub\\": "github/",
+            "Webid\\OctoolsGryzzly\\": "gryzzly/",
+            "Webid\\OctoolsSlack\\": "slack/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Webid\\OctoolsGithub\\OctoolsGithubServiceProvider",
+                "Webid\\OctoolsGryzzly\\OctoolsGryzzlyServiceProvider",
+                "Webid\\OctoolsSlack\\OctoolsSlackServiceProvider"
+            ]
+        }
+    },
+    "repositories": [
+        {
+            "type": "composer",
+            "url": "https://nova.laravel.com"
+        },
+        {
+            "type": "path",
+            "url": "../octools",
+            "options": {
+                "symlink": true
+            }
+        }
+    ],
+    "config": {
+        "allow-plugins": {
+            "php-http/discovery": true
+        }
+    }
+}
