@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Webid\OctoolsGryzzly\Http\Controllers;
 
-use Webid\Octools\Facades\Octools;
 use Webid\OctoolsGryzzly\Services\GryzzlyServiceDecorator;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Http\JsonResponse;
@@ -85,7 +84,7 @@ class GryzzlyController
         $credentials = $this->getApplicationGryzzlyCredentials(loggedApplication());
 
         /** @var string $memberUuid */
-        $memberUuid = $member->getUsernameForService(Octools::getServiceByKey('gryzzly'));
+        $memberUuid = $member->getUsernameForService(OctoolsGryzzly::make());
 
         /* @var array $parameters */
         $parameters = $request->validated();

@@ -6,7 +6,6 @@ namespace Webid\OctoolsGithub\Http\Controllers;
 
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Http\JsonResponse;
-use Webid\Octools\Facades\Octools;
 use Webid\OctoolsGithub\Api\Entities\GithubCredentials;
 use Webid\OctoolsGithub\Api\Exceptions\CustomGithubMessageException;
 use Webid\OctoolsGithub\Api\Exceptions\GithubIsNotConfigured;
@@ -111,7 +110,7 @@ class GithubController
         CursorPaginatedRequest $request
     ): JsonResponse {
         /** @var string $username */
-        $username = $member->getUsernameForService(Octools::getServiceByKey('github'));
+        $username = $member->getUsernameForService(OctoolsGithub::make());
 
         if (empty($username)) {
             throw new CustomGithubMessageException('Member does not have github username.');
