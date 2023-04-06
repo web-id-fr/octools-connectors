@@ -110,7 +110,7 @@ class GithubController
         CursorPaginatedRequest $request
     ): JsonResponse {
         /** @var string $username */
-        $username = $member->getGithubUsername();
+        $username = $member->getUsernameForService(OctoolsGithub::make());
 
         if (empty($username)) {
             throw new CustomGithubMessageException('Member does not have github username.');

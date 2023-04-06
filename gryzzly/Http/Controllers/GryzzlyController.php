@@ -42,7 +42,7 @@ class GryzzlyController
     public function getCompanyEmployeeByUUID(Member $member): JsonResponse
     {
         /** @var string $memberGryzzlyUuid */
-        $memberGryzzlyUuid = $member->getGryzzlyUUID();
+        $memberGryzzlyUuid = $member->getUsernameForService(OctoolsGryzzly::make());
         $credentials = $this->getApplicationGryzzlyCredentials(loggedApplication());
         return response()->json($this->client->getEmployeeByUuid($credentials, $memberGryzzlyUuid));
     }
@@ -84,7 +84,7 @@ class GryzzlyController
         $credentials = $this->getApplicationGryzzlyCredentials(loggedApplication());
 
         /** @var string $memberUuid */
-        $memberUuid = $member->getGryzzlyUUID();
+        $memberUuid = $member->getUsernameForService(OctoolsGryzzly::make());
 
         /* @var array $parameters */
         $parameters = $request->validated();
