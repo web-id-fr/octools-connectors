@@ -10,6 +10,6 @@ final class OctoolsSlack extends OctoolsService
 {
     public static function make(): OctoolsSlack
     {
-        return new self('slack', 'slack_member_id', ['token']);
+        return new self('slack', 'member_id', ['token']);
     }
 }

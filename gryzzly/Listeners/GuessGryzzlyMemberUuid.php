@@ -17,9 +17,9 @@ class GuessGryzzlyMemberUuid
     ) {
     }
 
-    public function handle(Member $member, array $payload): void
+    public function handle(Member $member, ?string $identifier): void
     {
-        if (!empty($payload['uuid'])) {
+        if (!empty($identifier)) {
             return;
         }
 
@@ -34,7 +34,7 @@ class GuessGryzzlyMemberUuid
 
             $member->services()->updateOrCreate(
                 ['member_id' => $member->getKey(), 'service' => OctoolsGryzzly::make()->name],
-                ['config' => ['uuid' => $gryzzlyMember->uuid]],
+                ['identifier' => $gryzzlyMember->uuid],
             );
         } catch (EmployeeNotFoundException) {}
     }

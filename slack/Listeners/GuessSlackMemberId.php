@@ -22,9 +22,9 @@ class GuessSlackMemberId
      * @param array $payload
      * @return void
      */
-    public function handle(Member $member, array $payload): void
+    public function handle(Member $member, ?string $identifier): void
     {
-        if (!empty($payload['slack_member_id'])) {
+        if (!empty($identifier)) {
             return;
         }
 
@@ -39,7 +39,7 @@ class GuessSlackMemberId
 
             $member->services()->updateOrCreate(
                 ['member_id' => $member->getKey(), 'service' => OctoolsSlack::make()->name],
-                ['config' => ['slack_member_id' => $slackMember->id]],
+                ['identifier' => $slackMember->id],
             );
         } catch (SlackMemberNotFoundException) {}
 
