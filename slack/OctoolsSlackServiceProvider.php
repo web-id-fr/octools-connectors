@@ -40,6 +40,6 @@ class OctoolsSlackServiceProvider extends BaseOctoolsServiceProvider
 
         Event::listen("member_service_set:{$this->service->name}", [GuessSlackMemberId::class, 'handle']);
 
-        $this->loadRoutesFrom(__DIR__ . '/routes/api.php');
+        $this->loadRoutesFrom(__DIR__ . '/Routes/api.php');
     }
 }

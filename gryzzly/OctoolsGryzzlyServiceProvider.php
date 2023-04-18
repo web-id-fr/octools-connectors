@@ -39,5 +39,7 @@ class OctoolsGryzzlyServiceProvider extends BaseOctoolsServiceProvider
         parent::boot();
 
         Event::listen("member_service_set:{$this->service->name}", [GuessGryzzlyMemberUuid::class, 'handle']);
+
+        $this->loadRoutesFrom(__DIR__ . '/Routes/api.php');
     }
 }
