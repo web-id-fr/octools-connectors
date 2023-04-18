@@ -36,6 +36,6 @@ class OctoolsGithubServiceProvider extends BaseOctoolsServiceProvider
     {
         parent::boot();
 
-        $this->loadRoutesFrom(__DIR__ . '/routes/api.php');
+        $this->loadRoutesFrom(__DIR__ . '/Routes/api.php');
     }
 }
