@@ -12,6 +12,7 @@ class GithubPaginationParametersRequest extends CursorPaginatedRequest
     {
         return [
             ...parent::rules(),
+            'state' => ['string', Rule::in(['open', 'closed'])],
             'sort' => ['string', Rule::in(['created_at', 'updated_at'])],
             'direction' => ['string', Rule::in(['asc', 'desc'])],
         ];
