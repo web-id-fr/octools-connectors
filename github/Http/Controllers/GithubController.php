@@ -6,16 +6,26 @@ namespace Webid\OctoolsGithub\Http\Controllers;
 
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Http\JsonResponse;
+use Webid\Octools\OpenApi\Responses\ErrorUnauthenticatedResponse;
+use Webid\Octools\OpenApi\Responses\ErrorUnauthorizedResponse;
 use Webid\OctoolsGithub\Api\Entities\GithubCredentials;
 use Webid\OctoolsGithub\Api\Exceptions\CustomGithubMessageException;
 use Webid\OctoolsGithub\Api\Exceptions\GithubIsNotConfigured;
 use Webid\OctoolsGithub\Http\Requests\CursorPaginatedRequest;
 use Webid\OctoolsGithub\Http\Requests\GithubPaginationParametersRequest;
 use Webid\OctoolsGithub\OctoolsGithub;
+use Webid\OctoolsGithub\OpenApi\Parameters\GithubPaginationParameters;
+use Webid\OctoolsGithub\OpenApi\Responses\ErrorGithubIsNotConfiguredResponse;
+use Webid\OctoolsGithub\OpenApi\Responses\ErrorGithubRepositoryNotFoundResponse;
+use Webid\OctoolsGithub\OpenApi\Responses\ListIssuesResponse;
+use Webid\OctoolsGithub\OpenApi\Responses\ListRepositoriesResponse;
+use Webid\OctoolsGithub\OpenApi\Responses\RepositoryResponse;
 use Webid\OctoolsGithub\Services\GithubServiceDecorator;
 use Webid\Octools\Models\Application;
 use Webid\Octools\Models\Member;
+use Vyuldashev\LaravelOpenApi\Attributes as OpenApi;
 
+#[OpenApi\PathItem]
 class GithubController
 {
     public function __construct(
@@ -24,9 +34,16 @@ class GithubController
     }
 
     /**
+     * Get company repositories.
+     *
      * @throws GithubIsNotConfigured
      * @throws AuthenticationException
      */
+    #[OpenApi\Operation(tags: ['Github'])]
+    #[OpenApi\Response(factory: ListRepositoriesResponse::class)]
+    #[OpenApi\Response(factory: ErrorUnauthorizedResponse::class, statusCode: 401)]
+    #[OpenApi\Response(factory: ErrorGithubIsNotConfiguredResponse::class, statusCode: 401)]
+    #[OpenApi\Response(factory: ErrorUnauthenticatedResponse::class, statusCode: 403)]
     public function getCompanyRepositories(GithubPaginationParametersRequest $request): JsonResponse
     {
         /** @var array $parameters */
@@ -39,9 +56,18 @@ class GithubController
     }
 
     /**
+     * Get company repository by name.
+     *
+     * @param string $repositoryName Repository name
+     *
      * @throws GithubIsNotConfigured
      * @throws AuthenticationException
      */
+    #[OpenApi\Operation(tags: ['Github'])]
+    #[OpenApi\Response(factory: RepositoryResponse::class)]
+    #[OpenApi\Response(factory: ErrorUnauthorizedResponse::class, statusCode: 401)]
+    #[OpenApi\Response(factory: ErrorGithubIsNotConfiguredResponse::class, statusCode: 401)]
+    #[OpenApi\Response(factory: ErrorUnauthenticatedResponse::class, statusCode: 403)]
     public function getCompanyRepositoryByName(string $repositoryName): JsonResponse
     {
         return response()->json($this->client->getCompanyRepositoryByName(
@@ -51,9 +77,20 @@ class GithubController
     }
 
     /**
+     * Get company repository issues.
+     *
+     * @param string $repositoryName Repository name
+     *
      * @throws GithubIsNotConfigured
      * @throws AuthenticationException
      */
+    #[OpenApi\Operation(tags: ['Github'])]
+    #[OpenApi\Parameters(factory: GithubPaginationParameters::class)]
+    #[OpenApi\Response(factory: ListIssuesResponse::class)]
+    #[OpenApi\Response(factory: ErrorUnauthorizedResponse::class, statusCode: 401)]
+    #[OpenApi\Response(factory: ErrorGithubIsNotConfiguredResponse::class, statusCode: 401)]
+    #[OpenApi\Response(factory: ErrorUnauthenticatedResponse::class, statusCode: 403)]
+    #[OpenApi\Response(factory: ErrorGithubRepositoryNotFoundResponse::class, statusCode: 404)]
     public function getCompanyRepositoryIssues(GithubPaginationParametersRequest $request, string $repositoryName) : JsonResponse
     {
         /** @var array $parameters */
