@@ -224,6 +224,7 @@ class GitHubApiService implements GitHubApiServiceInterface
 
         /** @var ?array $repository */
         $repository = $response->json('data.repository');
+
         if (is_null($repository)) {
             throw new RepositoryNotFoundException();
         }

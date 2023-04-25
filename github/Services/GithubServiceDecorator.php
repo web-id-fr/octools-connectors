@@ -141,25 +141,28 @@ class GithubServiceDecorator implements GitHubApiServiceInterface
             /** @var OctoMember $member */
             $member = $members->get($pullRequest?->author?->login);
 
-            $author = Member::fromOctoMember(
-                $pullRequest->author,
-                $pullRequest?->author?->login ? $member : null
-            );
+            if (!is_null($member)) {
+                $author = Member::fromOctoMember(
+                    $pullRequest->author,
+                    $member
+                );
+            } else {
+                $author = Member::fromOctoMember(
+                    $pullRequest->author,
+                    $member
+                );
+            }
 
             foreach ($pullRequest->assignees as $assignee) {
-                if (array_key_exists($assignee->login, $members->toArray())) {
-                    /** @var OctoMember $member */
-                    $member = $members->get($assignee->login);
-                    $assignees[] = Member::fromOctoMember($assignee, $member);
-                }
+                /** @var OctoMember $member */
+                $member = $members->get($assignee->login);
+                $assignees[] = Member::fromOctoMember($assignee, $member);
             }
 
             foreach ($pullRequest->reviewers as $reviewer) {
-                if (array_key_exists($reviewer->login, $members->toArray())) {
-                    /** @var OctoMember $member */
-                    $member = $members->get($reviewer->login);
-                    $reviewers[] = Member::fromOctoMember($reviewer, $member);
-                }
+                /** @var OctoMember $member */
+                $member = $members->get($reviewer->login);
+                $reviewers[] = Member::fromOctoMember($reviewer, $member);
             }
 
             $result->items[$key] = new PullRequest(
@@ -167,6 +170,7 @@ class GithubServiceDecorator implements GitHubApiServiceInterface
                 $pullRequest->number,
                 $pullRequest->url,
                 $pullRequest->state,
+                $pullRequest->updatedAt,
                 $author,
                 $pullRequest->linkedIssues,
                 $assignees,
