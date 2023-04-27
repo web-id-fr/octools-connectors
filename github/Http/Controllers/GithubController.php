@@ -14,10 +14,18 @@ use Webid\OctoolsGithub\Api\Exceptions\GithubIsNotConfigured;
 use Webid\OctoolsGithub\Http\Requests\CursorPaginatedRequest;
 use Webid\OctoolsGithub\Http\Requests\GithubPaginationParametersRequest;
 use Webid\OctoolsGithub\OctoolsGithub;
-use Webid\OctoolsGithub\OpenApi\Parameters\GithubPaginationParameters;
+use Webid\OctoolsGithub\OpenApi\Parameters\ListCompanyRepositoryEmployeesPaginationParameters;
+use Webid\OctoolsGithub\OpenApi\Parameters\ListCompanyRepositoryIssuesPaginationParameters;
+use Webid\OctoolsGithub\OpenApi\Parameters\ListIssuesSearchPaginationParameters;
+use Webid\OctoolsGithub\OpenApi\Parameters\ListRepositoriesPullRequestsPaginationParameters;
+use Webid\OctoolsGithub\OpenApi\Parameters\QuerySearchPaginationParameters;
+use Webid\OctoolsGithub\OpenApi\Parameters\ListRepositoriesUserPullRequestsPaginationParameters;
 use Webid\OctoolsGithub\OpenApi\Responses\ErrorGithubIsNotConfiguredResponse;
+use Webid\OctoolsGithub\OpenApi\Responses\ErrorGithubMemberDoesNotHaveGithubUsernameResponse;
 use Webid\OctoolsGithub\OpenApi\Responses\ErrorGithubRepositoryNotFoundResponse;
+use Webid\OctoolsGithub\OpenApi\Responses\ListEmployeesResponse;
 use Webid\OctoolsGithub\OpenApi\Responses\ListIssuesResponse;
+use Webid\OctoolsGithub\OpenApi\Responses\ListPullRequestsResponse;
 use Webid\OctoolsGithub\OpenApi\Responses\ListRepositoriesResponse;
 use Webid\OctoolsGithub\OpenApi\Responses\RepositoryResponse;
 use Webid\OctoolsGithub\Services\GithubServiceDecorator;
@@ -85,7 +93,7 @@ class GithubController
      * @throws AuthenticationException
      */
     #[OpenApi\Operation(tags: ['Github'])]
-    #[OpenApi\Parameters(factory: GithubPaginationParameters::class)]
+    #[OpenApi\Parameters(factory: ListCompanyRepositoryIssuesPaginationParameters::class)]
     #[OpenApi\Response(factory: ListIssuesResponse::class)]
     #[OpenApi\Response(factory: ErrorUnauthorizedResponse::class, statusCode: 401)]
     #[OpenApi\Response(factory: ErrorGithubIsNotConfiguredResponse::class, statusCode: 401)]
@@ -104,9 +112,18 @@ class GithubController
     }
 
     /**
+     * Get company employees.
+     *
      * @throws GithubIsNotConfigured
      * @throws AuthenticationException
      */
+    #[OpenApi\Operation(tags: ['Github'])]
+    #[OpenApi\Parameters(factory: ListCompanyRepositoryEmployeesPaginationParameters::class)]
+    #[OpenApi\Response(factory: ListEmployeesResponse::class)]
+    #[OpenApi\Response(factory: ErrorUnauthorizedResponse::class, statusCode: 401)]
+    #[OpenApi\Response(factory: ErrorGithubIsNotConfiguredResponse::class, statusCode: 401)]
+    #[OpenApi\Response(factory: ErrorUnauthenticatedResponse::class, statusCode: 403)]
+    #[OpenApi\Response(factory: ErrorGithubRepositoryNotFoundResponse::class, statusCode: 404)]
     public function getCompanyEmployees(GithubPaginationParametersRequest $request): JsonResponse
     {
         /** @var array $parameters */
@@ -119,9 +136,18 @@ class GithubController
     }
 
     /**
+     * Get repository pull requests.
+     *
      * @throws GithubIsNotConfigured
      * @throws AuthenticationException
      */
+    #[OpenApi\Operation(tags: ['Github'])]
+    #[OpenApi\Parameters(factory: ListRepositoriesPullRequestsPaginationParameters::class)]
+    #[OpenApi\Response(factory: ListPullRequestsResponse::class)]
+    #[OpenApi\Response(factory: ErrorUnauthorizedResponse::class, statusCode: 401)]
+    #[OpenApi\Response(factory: ErrorGithubIsNotConfiguredResponse::class, statusCode: 401)]
+    #[OpenApi\Response(factory: ErrorUnauthenticatedResponse::class, statusCode: 403)]
+    #[OpenApi\Response(factory: ErrorGithubRepositoryNotFoundResponse::class, statusCode: 404)]
     public function getRepositoryPullRequests(GithubPaginationParametersRequest $request, string $repositoryName): JsonResponse
     {
         /** @var array $parameters */
@@ -137,13 +163,23 @@ class GithubController
     }
 
     /**
+     * Get user pull requests by repository.
+     *
      * @throws GithubIsNotConfigured
      * @throws AuthenticationException
      * @throws CustomGithubMessageException
      */
+    #[OpenApi\Operation(tags: ['Github'])]
+    #[OpenApi\Parameters(factory: ListRepositoriesUserPullRequestsPaginationParameters::class)]
+    #[OpenApi\Response(factory: ListPullRequestsResponse::class)]
+    #[OpenApi\Response(factory: ErrorUnauthorizedResponse::class, statusCode: 401)]
+    #[OpenApi\Response(factory: ErrorGithubIsNotConfiguredResponse::class, statusCode: 401)]
+    #[OpenApi\Response(factory: ErrorUnauthenticatedResponse::class, statusCode: 403)]
+    #[OpenApi\Response(factory: ErrorGithubRepositoryNotFoundResponse::class, statusCode: 404)]
+    #[OpenApi\Response(factory: ErrorGithubMemberDoesNotHaveGithubUsernameResponse::class, statusCode: 404)]
     public function getUserPullRequestsByRepository(
-        string          $repositoryName,
-        Member          $member,
+        string $repositoryName,
+        Member $member,
         CursorPaginatedRequest $request
     ): JsonResponse {
         /** @var string $username */
@@ -165,9 +201,17 @@ class GithubController
     }
 
     /**
+     * Search repositories.
+     *
      * @throws GithubIsNotConfigured
      * @throws AuthenticationException
      */
+    #[OpenApi\Operation(tags: ['Github'])]
+    #[OpenApi\Parameters(factory: QuerySearchPaginationParameters::class)]
+    #[OpenApi\Response(factory: ListRepositoriesResponse::class)]
+    #[OpenApi\Response(factory: ErrorUnauthorizedResponse::class, statusCode: 401)]
+    #[OpenApi\Response(factory: ErrorGithubIsNotConfiguredResponse::class, statusCode: 401)]
+    #[OpenApi\Response(factory: ErrorUnauthenticatedResponse::class, statusCode: 403)]
     public function searchRepositories(CursorPaginatedRequest $request, string $query): JsonResponse
     {
         /** @var array $parameters */
@@ -181,9 +225,17 @@ class GithubController
     }
 
     /**
+     * Search issues.
+     *
      * @throws GithubIsNotConfigured
      * @throws AuthenticationException
      */
+    #[OpenApi\Operation(tags: ['Github'])]
+    #[OpenApi\Parameters(factory: QuerySearchPaginationParameters::class)]
+    #[OpenApi\Response(factory: ListIssuesResponse::class)]
+    #[OpenApi\Response(factory: ErrorUnauthorizedResponse::class, statusCode: 401)]
+    #[OpenApi\Response(factory: ErrorGithubIsNotConfiguredResponse::class, statusCode: 401)]
+    #[OpenApi\Response(factory: ErrorUnauthenticatedResponse::class, statusCode: 403)]
     public function searchIssues(CursorPaginatedRequest $request, string $query): JsonResponse
     {
         /** @var array $parameters */
@@ -197,9 +249,17 @@ class GithubController
     }
 
     /**
+     * Search pull requests.
+     *
      * @throws GithubIsNotConfigured
      * @throws AuthenticationException
      */
+    #[OpenApi\Operation(tags: ['Github'])]
+    #[OpenApi\Parameters(factory: QuerySearchPaginationParameters::class)]
+    #[OpenApi\Response(factory: ListIssuesResponse::class)]
+    #[OpenApi\Response(factory: ErrorUnauthorizedResponse::class, statusCode: 401)]
+    #[OpenApi\Response(factory: ErrorGithubIsNotConfiguredResponse::class, statusCode: 401)]
+    #[OpenApi\Response(factory: ErrorUnauthenticatedResponse::class, statusCode: 403)]
     public function searchPullRequests(CursorPaginatedRequest $request, string $query): JsonResponse
     {
         /** @var array $parameters */

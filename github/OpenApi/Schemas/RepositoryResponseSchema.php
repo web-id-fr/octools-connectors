@@ -18,7 +18,7 @@ class RepositoryResponseSchema extends SchemaFactory implements Reusable
      */
     public function build(): SchemaContract
     {
-        return Schema::object('RepositoryResponse')
+        return Schema::object('GithubRepositoryResponse')
             ->properties(
                 Schema::integer('databaseId')->example(123456789),
                 Schema::string('name')->example('your-repository'),

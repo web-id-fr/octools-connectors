@@ -2,27 +2,13 @@
 
 namespace Webid\OctoolsGithub\OpenApi\Responses;
 
-use GoldSpecDigital\ObjectOrientedOAS\Objects\MediaType;
 use GoldSpecDigital\ObjectOrientedOAS\Objects\Response;
-use GoldSpecDigital\ObjectOrientedOAS\Objects\Schema;
-use Vyuldashev\LaravelOpenApi\Factories\ResponseFactory;
 use Webid\OctoolsGithub\OpenApi\Schemas\RepositoryResponseSchema;
 
-class ListRepositoriesResponse extends ResponseFactory
+class ListRepositoriesResponse extends AbstractCursorPaginatedResponse
 {
     public function build(): Response
     {
-        return Response::ok()->description('Successful response')->content(
-            MediaType::json()->schema(
-                Schema::object()->properties(
-                    Schema::integer('perPage')->minimum(1),
-                    Schema::array('items')->items(RepositoryResponseSchema::ref()),
-                    Schema::integer('total')->nullable()->minimum(0),
-                    Schema::string('cursor')
-                        ->nullable()
-                        ->example('Y3Vyc29yOnYyOpK5MjAyMy0wMS0yN1QyMDoyMDoxOCswMTowMM4aoNtE'),
-                )
-            )
-        );
+        return $this->buildAroundItems(RepositoryResponseSchema::ref());
     }
 }

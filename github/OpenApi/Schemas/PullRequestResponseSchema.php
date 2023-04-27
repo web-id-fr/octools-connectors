@@ -11,21 +11,24 @@ use GoldSpecDigital\ObjectOrientedOAS\Objects\Schema;
 use Vyuldashev\LaravelOpenApi\Contracts\Reusable;
 use Vyuldashev\LaravelOpenApi\Factories\SchemaFactory;
 
-class IssueResponseSchema extends SchemaFactory implements Reusable
+class PullRequestResponseSchema extends SchemaFactory implements Reusable
 {
     /**
      * @return AllOf|OneOf|AnyOf|Not|Schema
      */
     public function build(): SchemaContract
     {
-        return Schema::object('GithubIssueResponse')
+        return Schema::object('GithubPullRequestResponse')
             ->properties(
-                Schema::string('title')->example('Need to fix something wrong'),
+                Schema::string('title')->example('Fix this complex issue'),
                 Schema::integer('number')->example(123),
-                Schema::string('state')->enum('OPEN', 'CLOSED')->example('OPEN'),
                 Schema::string('url')
-                    ->example('https://github.com/organization/your-repository/issues/123'),
-                Schema::string('updatedAt')->format(Schema::FORMAT_DATE_TIME),
+                    ->example('https://github.com/organization/your-repository/pull/123'),
+                Schema::string('state')->enum('OPEN', 'MERGED', 'CLOSED')->example('OPEN'),
+                MemberResponseSchema::ref('author')->nullable(),
+                Schema::array('linkedIssues')->items(IssueResponseSchema::ref()),
+                Schema::array('assignees')->items(MemberResponseSchema::ref()),
+                Schema::array('reviewers')->items(MemberResponseSchema::ref()),
             );
     }
 }

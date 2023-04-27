@@ -11,21 +11,21 @@ use GoldSpecDigital\ObjectOrientedOAS\Objects\Schema;
 use Vyuldashev\LaravelOpenApi\Contracts\Reusable;
 use Vyuldashev\LaravelOpenApi\Factories\SchemaFactory;
 
-class IssueResponseSchema extends SchemaFactory implements Reusable
+class EmployeeResponseSchema extends SchemaFactory implements Reusable
 {
     /**
      * @return AllOf|OneOf|AnyOf|Not|Schema
      */
     public function build(): SchemaContract
     {
-        return Schema::object('GithubIssueResponse')
+        return Schema::object('GithubEmployeeResponse')
             ->properties(
-                Schema::string('title')->example('Need to fix something wrong'),
-                Schema::integer('number')->example(123),
-                Schema::string('state')->enum('OPEN', 'CLOSED')->example('OPEN'),
+                Schema::string('login')->example('johndoe'),
+                Schema::string('name')->nullable()->example(null),
+                Schema::string('email')->nullable()->example('johndoe@example.com'),
                 Schema::string('url')
-                    ->example('https://github.com/organization/your-repository/issues/123'),
-                Schema::string('updatedAt')->format(Schema::FORMAT_DATE_TIME),
+                    ->nullable()
+                    ->example('https://avatars.githubusercontent.com/u/1111222233334444?v=4'),
             );
     }
 }
