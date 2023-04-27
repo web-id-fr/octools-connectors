@@ -5,7 +5,7 @@ namespace Webid\OctoolsGithub\OpenApi\Parameters;
 use GoldSpecDigital\ObjectOrientedOAS\Objects\Parameter;
 use GoldSpecDigital\ObjectOrientedOAS\Objects\Schema;
 
-class ListCompanyRepositoryEmployeesPaginationParameters extends CursorPaginatedParameters
+class ListRepositoriesPullRequestsParameters extends CursorPaginatedParameters
 {
     /**
      * @return Parameter[]
@@ -13,6 +13,11 @@ class ListCompanyRepositoryEmployeesPaginationParameters extends CursorPaginated
     public function build(): array
     {
         return [
+            Parameter::query()
+                ->name('repositoryName')
+                ->required(true)
+                ->in(Parameter::IN_PATH)
+                ->schema(Schema::string()),
             ...parent::build(),
             Parameter::query()
                 ->name('state')

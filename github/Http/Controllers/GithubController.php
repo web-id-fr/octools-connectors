@@ -14,12 +14,11 @@ use Webid\OctoolsGithub\Api\Exceptions\GithubIsNotConfigured;
 use Webid\OctoolsGithub\Http\Requests\CursorPaginatedRequest;
 use Webid\OctoolsGithub\Http\Requests\GithubPaginationParametersRequest;
 use Webid\OctoolsGithub\OctoolsGithub;
-use Webid\OctoolsGithub\OpenApi\Parameters\ListCompanyRepositoryEmployeesPaginationParameters;
-use Webid\OctoolsGithub\OpenApi\Parameters\ListCompanyRepositoryIssuesPaginationParameters;
-use Webid\OctoolsGithub\OpenApi\Parameters\ListIssuesSearchPaginationParameters;
-use Webid\OctoolsGithub\OpenApi\Parameters\ListRepositoriesPullRequestsPaginationParameters;
+use Webid\OctoolsGithub\OpenApi\Parameters\ListCompanyEmployeesParameters;
+use Webid\OctoolsGithub\OpenApi\Parameters\ListCompanyRepositoryIssuesParameters;
+use Webid\OctoolsGithub\OpenApi\Parameters\ListRepositoriesPullRequestsParameters;
 use Webid\OctoolsGithub\OpenApi\Parameters\QuerySearchPaginationParameters;
-use Webid\OctoolsGithub\OpenApi\Parameters\ListRepositoriesUserPullRequestsPaginationParameters;
+use Webid\OctoolsGithub\OpenApi\Parameters\ListRepositoriesUserPullRequestsParameters;
 use Webid\OctoolsGithub\OpenApi\Responses\ErrorGithubIsNotConfiguredResponse;
 use Webid\OctoolsGithub\OpenApi\Responses\ErrorGithubMemberDoesNotHaveGithubUsernameResponse;
 use Webid\OctoolsGithub\OpenApi\Responses\ErrorGithubRepositoryNotFoundResponse;
@@ -93,7 +92,7 @@ class GithubController
      * @throws AuthenticationException
      */
     #[OpenApi\Operation(tags: ['Github'])]
-    #[OpenApi\Parameters(factory: ListCompanyRepositoryIssuesPaginationParameters::class)]
+    #[OpenApi\Parameters(factory: ListCompanyRepositoryIssuesParameters::class)]
     #[OpenApi\Response(factory: ListIssuesResponse::class)]
     #[OpenApi\Response(factory: ErrorUnauthorizedResponse::class, statusCode: 401)]
     #[OpenApi\Response(factory: ErrorGithubIsNotConfiguredResponse::class, statusCode: 401)]
@@ -118,7 +117,7 @@ class GithubController
      * @throws AuthenticationException
      */
     #[OpenApi\Operation(tags: ['Github'])]
-    #[OpenApi\Parameters(factory: ListCompanyRepositoryEmployeesPaginationParameters::class)]
+    #[OpenApi\Parameters(factory: ListCompanyEmployeesParameters::class)]
     #[OpenApi\Response(factory: ListEmployeesResponse::class)]
     #[OpenApi\Response(factory: ErrorUnauthorizedResponse::class, statusCode: 401)]
     #[OpenApi\Response(factory: ErrorGithubIsNotConfiguredResponse::class, statusCode: 401)]
@@ -142,7 +141,7 @@ class GithubController
      * @throws AuthenticationException
      */
     #[OpenApi\Operation(tags: ['Github'])]
-    #[OpenApi\Parameters(factory: ListRepositoriesPullRequestsPaginationParameters::class)]
+    #[OpenApi\Parameters(factory: ListRepositoriesPullRequestsParameters::class)]
     #[OpenApi\Response(factory: ListPullRequestsResponse::class)]
     #[OpenApi\Response(factory: ErrorUnauthorizedResponse::class, statusCode: 401)]
     #[OpenApi\Response(factory: ErrorGithubIsNotConfiguredResponse::class, statusCode: 401)]
@@ -170,7 +169,7 @@ class GithubController
      * @throws CustomGithubMessageException
      */
     #[OpenApi\Operation(tags: ['Github'])]
-    #[OpenApi\Parameters(factory: ListRepositoriesUserPullRequestsPaginationParameters::class)]
+    #[OpenApi\Parameters(factory: ListRepositoriesUserPullRequestsParameters::class)]
     #[OpenApi\Response(factory: ListPullRequestsResponse::class)]
     #[OpenApi\Response(factory: ErrorUnauthorizedResponse::class, statusCode: 401)]
     #[OpenApi\Response(factory: ErrorGithubIsNotConfiguredResponse::class, statusCode: 401)]

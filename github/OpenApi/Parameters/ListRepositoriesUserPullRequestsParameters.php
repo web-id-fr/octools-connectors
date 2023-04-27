@@ -5,7 +5,7 @@ namespace Webid\OctoolsGithub\OpenApi\Parameters;
 use GoldSpecDigital\ObjectOrientedOAS\Objects\Parameter;
 use GoldSpecDigital\ObjectOrientedOAS\Objects\Schema;
 
-class ListRepositoriesUserPullRequestsPaginationParameters extends ListRepositoriesPullRequestsPaginationParameters
+class ListRepositoriesUserPullRequestsParameters extends ListRepositoriesPullRequestsParameters
 {
     /**
      * @return Parameter[]
