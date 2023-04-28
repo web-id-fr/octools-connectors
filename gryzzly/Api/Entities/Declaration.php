@@ -8,7 +8,7 @@ class Declaration
 {
     public function __construct(
         public readonly string $id,
-        public readonly string $duration,
+        public readonly int $duration,
         public readonly string $date,
         public readonly ?string $description,
         public readonly string $taskId,

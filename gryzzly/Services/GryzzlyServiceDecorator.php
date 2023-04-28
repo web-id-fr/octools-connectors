@@ -76,12 +76,12 @@ class GryzzlyServiceDecorator implements GryzzlyApiServiceInterface
     ): CursorPaginator {
         $result = $this->apiService->getDeclarationsByEmployee($credentials, $memberUuid, $parameters);
 
-        /** @var Collection $members */
+        /** @var integer $idOctoMember */
         $idOctoMember = OctoMember::query()
             ->with('services')
-            ->havingServiceMemberKeyMatching(OctoolsGryzzly::make(), $memberUuid)
+            ->havingServiceMemberKeyMatching(OctoolsGryzzly::make(), [$memberUuid])
             ->first()
-            ?->getKey();
+            ->getKey();
 
         foreach ($result->items as $key => $declaration) {
             $result->items[$key] = Declaration::fromDeclaration($declaration, $idOctoMember);
