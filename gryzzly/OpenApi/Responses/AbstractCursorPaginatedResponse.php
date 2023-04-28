@@ -21,7 +21,7 @@ abstract class AbstractCursorPaginatedResponse extends ResponseFactory
         return Response::ok()->description('Successful response')->content(
             MediaType::json()->schema(
                 Schema::object()->properties(
-                    Schema::integer('perPage')->minimum(1),
+                    Schema::integer('perPage')->minimum(1)->minimum(30),
                     Schema::array('items')->items($items),
                     Schema::integer('total')->nullable()->minimum(0)->example(1),
                     Schema::integer('cursor')->nullable(),

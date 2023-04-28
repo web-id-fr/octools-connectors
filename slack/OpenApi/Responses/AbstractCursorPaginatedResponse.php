@@ -1,6 +1,6 @@
 <?php
 
-namespace Webid\OctoolsGithub\OpenApi\Responses;
+namespace Webid\OctoolsSlack\OpenApi\Responses;
 
 use GoldSpecDigital\ObjectOrientedOAS\Contracts\SchemaContract;
 use GoldSpecDigital\ObjectOrientedOAS\Objects\MediaType;
@@ -23,10 +23,8 @@ abstract class AbstractCursorPaginatedResponse extends ResponseFactory
                 Schema::object()->properties(
                     Schema::integer('perPage')->minimum(1)->example(30),
                     Schema::array('items')->items($items),
-                    Schema::integer('total')->nullable()->minimum(0),
-                    Schema::string('cursor')
-                        ->nullable()
-                        ->example('Y3Vyc29yOnYyOpK5MjAyMy0wMS0yN1QyMDoyMDoxOCswMTowMM4aoNtE'),
+                    Schema::integer('total')->nullable()->minimum(0)->example(1),
+                    Schema::integer('cursor')->nullable()->example('dXNlcjpVOFQxRjFCSDc='),
                 )
             )
         );
