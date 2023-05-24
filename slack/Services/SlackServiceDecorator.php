@@ -49,9 +49,9 @@ class SlackServiceDecorator implements SlackApiServiceInterface
         return $this->apiService->getSlackMemberByEmail($credentials, $email);
     }
 
-    public function sendMessageToChannel(SlackCredentials $credentials, string $message, string $channel): void
+    public function sendMessageToChannel(SlackCredentials $credentials, string $message, string $channel, string $blocks = null, string $attachments = null): void
     {
-        $this->apiService->sendMessageToChannel($credentials, $message, $channel);
+        $this->apiService->sendMessageToChannel($credentials, $message, $channel, $blocks, $attachments);
     }
 
     public function searchMessages(SlackCredentials $credentials, string $search, array $parameters): CursorPaginator

@@ -62,10 +62,10 @@ class SlackApiService implements SlackApiServiceInterface
         throw new SlackMemberNotFoundException();
     }
 
-    public function sendMessageToChannel(SlackCredentials $credentials, string $message, string $channel): void
+    public function sendMessageToChannel(SlackCredentials $credentials, string $message, string $channel, string $blocks = null, string $attachments = null): void
     {
         $client = $this->getAuthenticateClient($credentials);
-        $client->chatPostMessage(['channel' => $channel, 'text' => $message]);
+        $client->chatPostMessage(['channel' => $channel, 'text' => $message, 'attachments' => $attachments, 'blocks' => $blocks]);
     }
 
     /**

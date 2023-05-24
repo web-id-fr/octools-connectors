@@ -48,9 +48,14 @@ class SlackController
         /** @var string $channel */
         $channel = $request->validated('channel');
 
+        /** @var string $blocks */
+        $blocks = $request->validated('blocks');
+
+        /** @var string $attachments */
+        $attachments = $request->validated('attachments');
         try {
             $credentials = $this->getApplicationSlackCredentials(loggedApplication());
-            $this->client->sendMessageToChannel($credentials, $message, $channel);
+            $this->client->sendMessageToChannel($credentials, $message, $channel, $blocks, $attachments);
         } catch (SlackErrorResponse $e) {
             return response()->json([
                 'error' => $e->getMessage(),

@@ -18,6 +18,8 @@ class SendSlackMessageRequest extends FormRequest
         return [
             'message' => ['required', 'string'],
             'channel' => ['required', 'string'],
+            'blocks' => ['nullable', 'string'],
+            'attachments' => ['nullable', 'string'],
         ];
     }
 }
