@@ -7,7 +7,7 @@
         }
     ],
     "require": {
-        "webid/octools": "^0.1.0",
+        "webid/octools": "^0.1.3",
         "illuminate/support": "^10.0",
         "laravel/nova": "^4.0",
         "jolicode/slack-php-api": "^4.5",
