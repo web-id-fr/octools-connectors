@@ -174,15 +174,20 @@ class GryzzlyApiService implements GryzzlyApiServiceInterface
     ): CursorPaginator {
         $paginationParams = $this->buildPaginationParameters($parameters);
 
-        /** @var Response $response */
-        $response = $this->auth($credentials)
-            ->post(
-                'declarations.list',
-                [
-                ...$paginationParams,
-                'user_ids' => [$memberUuid],
-                ]
-            );
+        try {
+            /** @var Response $response */
+            $response = $this->auth($credentials)
+                ->post(
+                    'declarations.list',
+                    [
+                        ...$paginationParams,
+                        'user_ids' => [$memberUuid],
+                    ]
+                );
+        } catch (Exception $e) {
+            return new CursorPaginator(30, []);
+        }
+
 
         /** @var array $json */
         $json = $response->json();
@@ -226,6 +231,7 @@ class GryzzlyApiService implements GryzzlyApiServiceInterface
         }
 
         return [
+            ...$parameters,
             'limit' => $perPage,
             'offset' => $offset,
         ];

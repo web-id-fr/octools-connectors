@@ -69,17 +69,17 @@ class GryzzlyServiceDecorator implements GryzzlyApiServiceInterface
         return $this->apiService->getTasksByProjects($credentials, $uuid, $parameters);
     }
 
-    public function getDeclarationsByEmployee(
+    public function  getDeclarationsByEmployee(
         GryzzlyCredentials $credentials,
         string $memberUuid,
         array $parameters
     ): CursorPaginator {
         $result = $this->apiService->getDeclarationsByEmployee($credentials, $memberUuid, $parameters);
 
-        /** @var Collection $members */
+        /** @var int $idOctoMember */
         $idOctoMember = OctoMember::query()
             ->with('services')
-            ->havingServiceMemberKeyMatching(OctoolsGryzzly::make(), $memberUuid)
+            ->havingServiceMemberKeyMatching(OctoolsGryzzly::make(), [$memberUuid])
             ->first()
             ?->getKey();
 
