@@ -16,6 +16,7 @@ class PullRequest
         public readonly int $number,
         public readonly string $url,
         public readonly string $state,
+        public readonly string $updatedAt,
         public readonly ?User $author,
         public readonly array $linkedIssues,
         public readonly array $assignees,
@@ -41,6 +42,7 @@ class PullRequest
             $data['number'],
             $data['url'],
             $data['state'],
+            $data['updatedAt'],
             $author,
             array_map(
                 fn(array $item) => Issue::fromGraphArray($item),
@@ -64,20 +66,35 @@ class PullRequest
             number,
             url,
             state,
-            author {... on User {' . User::graphAttributes() . '}},
-            repository {' . Repository::graphAttributes() . '},
+            updatedAt,
+            author {
+                ... on User {
+                    ' . User::graphAttributes() . '
+                }
+                ... on Bot {
+                    login,
+                    avatarUrl
+                }
+            },
+            repository {
+                ' . Repository::graphAttributes() . '
+            },
             closingIssuesReferences (first: 5) {
                 nodes {
                   ' . Issue::graphAttributes() . '
                 }
             }
             assignees (first: 5) {
-                nodes {' . User::graphAttributes() . '}
+                nodes {
+                    ' . User::graphAttributes() . '
+                }
             }
             reviewRequests(first: 10) {
               nodes {
                 requestedReviewer {
-                  ... on User {' . User::graphAttributes() . '}
+                  ... on User {
+                    ' . User::graphAttributes() . '
+                  }
                 }
               }
             }
