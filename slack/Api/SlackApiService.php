@@ -65,7 +65,16 @@ class SlackApiService implements SlackApiServiceInterface
     public function sendMessageToChannel(SlackCredentials $credentials, string $message, string $channel, string $blocks = null, string $attachments = null): void
     {
         $client = $this->getAuthenticateClient($credentials);
-        $client->chatPostMessage(['channel' => $channel, 'text' => $message, 'attachments' => $attachments, 'blocks' => $blocks]);
+
+        $payload = ['channel' => $channel, 'text' => $message];
+        if (isset($attachments)) {
+            $payload['attachments'] = $attachments;
+        }
+        if (isset($blocks)) {
+            $payload['blocks'] = $blocks;
+        }
+
+        $client->chatPostMessage($payload);
     }
 
     /**

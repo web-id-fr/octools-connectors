@@ -79,7 +79,7 @@ class GryzzlyServiceDecorator implements GryzzlyApiServiceInterface
         /** @var int $idOctoMember */
         $idOctoMember = OctoMember::query()
             ->with('services')
-            ->havingServiceMemberKeyMatching(OctoolsGryzzly::make(), array($memberUuid))
+            ->havingServiceMemberKeyMatching(OctoolsGryzzly::make(), [$memberUuid])
             ->first()
             ?->getKey();
 

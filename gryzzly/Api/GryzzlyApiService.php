@@ -231,9 +231,9 @@ class GryzzlyApiService implements GryzzlyApiServiceInterface
         }
 
         return [
+            ...$parameters,
             'limit' => $perPage,
             'offset' => $offset,
-            ...$parameters,
         ];
     }
 
