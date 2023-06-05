@@ -42,7 +42,7 @@ class GryzzlyController
      * @throws AuthenticationException
      * @throws GryzzlyIsNotConfigured
      */
-    #[OpenApi\Operation(tags: ['Gryzzly'])]
+    #[OpenApi\Operation(id: 'getCompanyEmployees', tags: ['Gryzzly'])]
     #[OpenApi\Parameters(factory: CursorPaginatedParameters::class)]
     #[OpenApi\Response(factory: ListEmployeesResponse::class)]
     #[OpenApi\Response(factory: ErrorUnauthorizedResponse::class, statusCode: 401)]
@@ -64,7 +64,7 @@ class GryzzlyController
      * @throws AuthenticationException
      * @throws GryzzlyIsNotConfigured
      */
-    #[OpenApi\Operation(tags: ['Gryzzly'])]
+    #[OpenApi\Operation(id: 'getCompanyEmployeeByUUID', tags: ['Gryzzly'])]
     #[OpenApi\Parameters(factory: CompanyEmployeeByMemberIdParameters::class)]
     #[OpenApi\Response(factory: EmployeeResponse::class)]
     #[OpenApi\Response(factory: ErrorUnauthorizedResponse::class, statusCode: 401)]
@@ -86,7 +86,7 @@ class GryzzlyController
      * @throws AuthenticationException
      * @throws GryzzlyIsNotConfigured
      */
-    #[OpenApi\Operation(tags: ['Gryzzly'])]
+    #[OpenApi\Operation(id: 'getCompanyProjects', tags: ['Gryzzly'])]
     #[OpenApi\Parameters(factory: CursorPaginatedParameters::class)]
     #[OpenApi\Response(factory: ListProjectsResponse::class)]
     #[OpenApi\Response(factory: ErrorUnauthorizedResponse::class, statusCode: 401)]
@@ -108,7 +108,7 @@ class GryzzlyController
      * @throws AuthenticationException
      * @throws GryzzlyIsNotConfigured
      */
-    #[OpenApi\Operation(tags: ['Gryzzly'])]
+    #[OpenApi\Operation(id: 'getTasksByProjectsUUID', tags: ['Gryzzly'])]
     #[OpenApi\Parameters(factory: TasksByProjectsUUIDParameters::class)]
     #[OpenApi\Response(factory: ListTasksResponse::class)]
     #[OpenApi\Response(factory: ErrorUnauthorizedResponse::class, statusCode: 401)]
@@ -131,7 +131,7 @@ class GryzzlyController
      * @throws AuthenticationException
      * @throws GryzzlyIsNotConfigured
      */
-    #[OpenApi\Operation(tags: ['Gryzzly'])]
+    #[OpenApi\Operation(id: 'getDeclarationsByEmployee', tags: ['Gryzzly'])]
     #[OpenApi\Parameters(factory: DeclarationsByMemberIdParameters::class)]
     #[OpenApi\Response(factory: ListDeclarationsResponse::class)]
     #[OpenApi\Response(factory: ErrorUnauthorizedResponse::class, statusCode: 401)]
