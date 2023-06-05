@@ -39,7 +39,7 @@ class SlackController
      * @throws AuthenticationException
      * @throws SlackIsNotConfigured
      */
-    #[OpenApi\Operation(id: 'getCompanyEmployees', tags: ['Slack'])]
+    #[OpenApi\Operation(id: 'getSlackCompanyEmployees', tags: ['Slack'])]
     #[OpenApi\Parameters(factory: CursorPaginatedParameters::class)]
     #[OpenApi\Response(factory: ListEmployeesResponse::class)]
     #[OpenApi\Response(factory: ErrorUnauthorizedResponse::class, statusCode: 401)]
@@ -61,7 +61,7 @@ class SlackController
      * @throws AuthenticationException
      * @throws SlackIsNotConfigured
      */
-    #[OpenApi\Operation(id: 'sendMessageToChannel', tags: ['Slack'])]
+    #[OpenApi\Operation(id: 'sendMessageToSlackChannel', tags: ['Slack'])]
     #[OpenApi\Parameters(factory: SendSlackMessageParameters::class)]
     #[OpenApi\Response(factory: MessageSuccessfullySentResponse::class)]
     #[OpenApi\Response(factory: ErrorUnauthorizedResponse::class, statusCode: 401)]
@@ -95,7 +95,7 @@ class SlackController
      * @throws AuthenticationException
      * @throws SlackIsNotConfigured
      */
-    #[OpenApi\Operation(id: 'searchMessages', tags: ['Slack'])]
+    #[OpenApi\Operation(id: 'searchSlackMessages', tags: ['Slack'])]
     #[OpenApi\Parameters(factory: SearchMessagesParameters::class)]
     #[OpenApi\Response(factory: ListMessagesResponse::class)]
     #[OpenApi\Response(factory: ErrorUnauthorizedResponse::class, statusCode: 401)]

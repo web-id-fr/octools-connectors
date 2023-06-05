@@ -46,7 +46,7 @@ class GithubController
      * @throws GithubIsNotConfigured
      * @throws AuthenticationException
      */
-    #[OpenApi\Operation(id: 'getCompanyRepositories', tags: ['Github'])]
+    #[OpenApi\Operation(id: 'getGithubCompanyRepositories', tags: ['Github'])]
     #[OpenApi\Response(factory: ListRepositoriesResponse::class)]
     #[OpenApi\Response(factory: ErrorUnauthorizedResponse::class, statusCode: 401)]
     #[OpenApi\Response(factory: ErrorGithubIsNotConfiguredResponse::class, statusCode: 401)]
@@ -70,7 +70,7 @@ class GithubController
      * @throws GithubIsNotConfigured
      * @throws AuthenticationException
      */
-    #[OpenApi\Operation(id: 'getCompanyRepositoryByName', tags: ['Github'])]
+    #[OpenApi\Operation(id: 'getGithubCompanyRepositoryByName', tags: ['Github'])]
     #[OpenApi\Response(factory: RepositoryResponse::class)]
     #[OpenApi\Response(factory: ErrorUnauthorizedResponse::class, statusCode: 401)]
     #[OpenApi\Response(factory: ErrorGithubIsNotConfiguredResponse::class, statusCode: 401)]
@@ -91,7 +91,7 @@ class GithubController
      * @throws GithubIsNotConfigured
      * @throws AuthenticationException
      */
-    #[OpenApi\Operation(id: 'getCompanyRepositoryIssues', tags: ['Github'])]
+    #[OpenApi\Operation(id: 'getGithubCompanyRepositoryIssues', tags: ['Github'])]
     #[OpenApi\Parameters(factory: ListCompanyRepositoryIssuesParameters::class)]
     #[OpenApi\Response(factory: ListIssuesResponse::class)]
     #[OpenApi\Response(factory: ErrorUnauthorizedResponse::class, statusCode: 401)]
@@ -116,7 +116,7 @@ class GithubController
      * @throws GithubIsNotConfigured
      * @throws AuthenticationException
      */
-    #[OpenApi\Operation(id: 'getCompanyEmployees', tags: ['Github'])]
+    #[OpenApi\Operation(id: 'getGithubCompanyEmployees', tags: ['Github'])]
     #[OpenApi\Parameters(factory: ListCompanyEmployeesParameters::class)]
     #[OpenApi\Response(factory: ListEmployeesResponse::class)]
     #[OpenApi\Response(factory: ErrorUnauthorizedResponse::class, statusCode: 401)]
@@ -140,7 +140,7 @@ class GithubController
      * @throws GithubIsNotConfigured
      * @throws AuthenticationException
      */
-    #[OpenApi\Operation(id: 'getRepositoryPullrequests', tags: ['Github'])]
+    #[OpenApi\Operation(id: 'getGithubRepositoryPullRequests', tags: ['Github'])]
     #[OpenApi\Parameters(factory: ListRepositoriesPullRequestsParameters::class)]
     #[OpenApi\Response(factory: ListPullRequestsResponse::class)]
     #[OpenApi\Response(factory: ErrorUnauthorizedResponse::class, statusCode: 401)]
@@ -168,7 +168,7 @@ class GithubController
      * @throws AuthenticationException
      * @throws CustomGithubMessageException
      */
-    #[OpenApi\Operation(id: 'getUserPullRequestsByRepository', tags: ['Github'])]
+    #[OpenApi\Operation(id: 'getGithubUserPullRequestsByRepository', tags: ['Github'])]
     #[OpenApi\Parameters(factory: ListRepositoriesUserPullRequestsParameters::class)]
     #[OpenApi\Response(factory: ListPullRequestsResponse::class)]
     #[OpenApi\Response(factory: ErrorUnauthorizedResponse::class, statusCode: 401)]
@@ -205,7 +205,7 @@ class GithubController
      * @throws GithubIsNotConfigured
      * @throws AuthenticationException
      */
-    #[OpenApi\Operation(id: 'searchRepositories', tags: ['Github'])]
+    #[OpenApi\Operation(id: 'searchGithubRepositories', tags: ['Github'])]
     #[OpenApi\Parameters(factory: QuerySearchPaginationParameters::class)]
     #[OpenApi\Response(factory: ListRepositoriesResponse::class)]
     #[OpenApi\Response(factory: ErrorUnauthorizedResponse::class, statusCode: 401)]
@@ -229,7 +229,7 @@ class GithubController
      * @throws GithubIsNotConfigured
      * @throws AuthenticationException
      */
-    #[OpenApi\Operation(id: 'searchIssues', tags: ['Github'])]
+    #[OpenApi\Operation(id: 'searchGithubIssues', tags: ['Github'])]
     #[OpenApi\Parameters(factory: QuerySearchPaginationParameters::class)]
     #[OpenApi\Response(factory: ListIssuesResponse::class)]
     #[OpenApi\Response(factory: ErrorUnauthorizedResponse::class, statusCode: 401)]
@@ -253,7 +253,7 @@ class GithubController
      * @throws GithubIsNotConfigured
      * @throws AuthenticationException
      */
-    #[OpenApi\Operation(id: 'searchPullRequests', tags: ['Github'])]
+    #[OpenApi\Operation(id: 'searchGithubPullRequests', tags: ['Github'])]
     #[OpenApi\Parameters(factory: QuerySearchPaginationParameters::class)]
     #[OpenApi\Response(factory: ListIssuesResponse::class)]
     #[OpenApi\Response(factory: ErrorUnauthorizedResponse::class, statusCode: 401)]
