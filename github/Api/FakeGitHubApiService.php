@@ -279,4 +279,38 @@ class FakeGitHubApiService implements GitHubApiServiceInterface
             '2023-01-01 20:23:22'
         );
     }
+
+    public function restGenericEndpoint(GithubCredentials $credentials, string $endpoint, array $parameters): array
+    {
+        return [
+            "total_count" => 1,
+            "incomplete_results" => false,
+            "items" => [
+                [
+                    "title" => "[CONFIGURATEUR] Erreur 404",
+                    "number" => 253,
+                    "state" => "OPEN",
+                    "url" => "",
+                    "updatedAt" => "2023-02-01T13:29:20Z"
+                ],
+            ]
+        ];
+    }
+
+    public function graphqlGenericEndpoint(GithubCredentials $credentials, array $parameters): array
+    {
+        return [
+            "total_count" => 1,
+            "incomplete_results" => false,
+            "items" => [
+                [
+                    "title" => "[CONFIGURATEUR] Erreur 404",
+                    "number" => 253,
+                    "state" => "OPEN",
+                    "url" => "",
+                    "updatedAt" => "2023-02-01T13:29:20Z"
+                ],
+            ]
+        ];
+    }
 }

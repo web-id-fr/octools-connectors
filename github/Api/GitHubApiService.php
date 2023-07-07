@@ -393,6 +393,7 @@ class GitHubApiService implements GitHubApiServiceInterface
         );
     }
 
+
     private function auth(GithubCredentials $credentials): PendingRequest
     {
         /** @var string $url */
@@ -506,5 +507,22 @@ class GitHubApiService implements GitHubApiServiceInterface
         if (isset($errors) && is_array($errors) && !empty($errors)) {
             throw GithubQueryErrorException::fromErrorResponse($errors);
         }
+    }
+
+    public function restGenericEndpoint(GithubCredentials $credentials, string $endpoint, array $parameters): array
+    {
+        return $this->auth($credentials)->get($endpoint, $parameters)->json();
+    }
+
+    public function graphqlGenericEndpoint(GithubCredentials $credentials, array $parameters): array
+    {
+        if (isset($parameters['query'])) {
+            $parameters['query'] =
+            <<<GQL
+                {$parameters['query']}
+            GQL;
+        }
+
+        return $this->auth($credentials)->post('graphql', $parameters)->json();
     }
 }
