@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Webid\OctoolsGithub\Http\Controllers;
 
 use Illuminate\Auth\AuthenticationException;
+use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use Webid\OctoolsGithub\Api\Entities\GithubCredentials;
 use Webid\OctoolsGithub\Api\Exceptions\CustomGithubMessageException;
@@ -173,6 +174,31 @@ class GithubController
             $query,
             $parameters
         ));
+    }
+
+    public function restGenericEndpoint(Request $request, string $uri): JsonResponse
+    {
+        $parameters = $request->all();
+
+        return response()->json(
+            $this->client->restGenericEndpoint(
+                $this->getApplicationGithubCredentials(loggedApplication()),
+                $uri,
+                $parameters
+            )
+        );
+    }
+
+    public function graphqlGenericEndpoint(Request $request): JsonResponse
+    {
+        $parameters = $request->all();
+
+        return response()->json(
+            $this->client->graphqlGenericEndpoint(
+                $this->getApplicationGithubCredentials(loggedApplication()),
+                $parameters
+            )
+        );
     }
 
     /**

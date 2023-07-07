@@ -180,4 +180,14 @@ class GithubServiceDecorator implements GitHubApiServiceInterface
 
         return $result;
     }
+
+    public function restGenericEndpoint(GithubCredentials $credentials, string $endpoint, array $parameters): array
+    {
+        return $this->apiService->restGenericEndpoint($credentials, $endpoint, $parameters);
+    }
+
+    public function graphqlGenericEndpoint(GithubCredentials $credentials, array $parameters): array
+    {
+        return $this->apiService->graphqlGenericEndpoint($credentials, $parameters);
+    }
 }

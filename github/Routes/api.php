@@ -14,5 +14,7 @@ Route::group(config('octools.api_routes_group'), function () {
         Route::get('/search-repositories/{query}', [GithubController::class, 'searchRepositories'])->name('search-repositories');
         Route::get('/search-issues/{query}', [GithubController::class, 'searchIssues'])->name('search-issues');
         Route::get('/search-pull-requests/{query}', [GithubController::class, 'searchPullRequests'])->name('search-pull-requests');
+        Route::post('/graphql', [GithubController::class, 'graphqlGenericEndpoint'])->name('graphql-generic-endpoint');
+        Route::any('/rest/{endpoint}', [GithubController::class, 'restGenericEndpoint'])->name('rest-generic-endpoint')->where('endpoint', '.*');
     });
 });

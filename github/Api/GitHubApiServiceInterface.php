@@ -61,4 +61,15 @@ interface GitHubApiServiceInterface
         string $search,
         array $paginationParams
     ): CursorPaginator;
+
+    public function restGenericEndpoint(
+        GithubCredentials $credentials,
+        string $endpoint,
+        array $parameters
+    ): array;
+
+    public function graphqlGenericEndpoint(
+        GithubCredentials $credentials,
+        array $parameters
+    ): array;
 }
